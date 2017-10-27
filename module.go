@@ -1,4 +1,4 @@
-package etherscanAPI
+package etherscan
 
 import (
 	"encoding/json"
@@ -10,10 +10,10 @@ import (
 // https://api.etherscan.io/api?module=proxy&action=eth_getCode&address=0xf75e354c5edc8efed9b59ee9f67a80845ade7d0c&tag=latest&apikey=YourApiKeyToken
 
 // GetCode - get code at a particular address
-func (a *API) GetCode(address string) (res StringRec) {
+func (e *Etherscan) GetCode(address string) (res StringRec) {
 	// GasPrice - get optimal gas price
 	var tr StringRec
-	call := "https://api.etherscan.io/api?module=proxy&action=eth_getCode&address=" + address + "&tag=latest&apikey=" + a.apiKey
+	call := "https://api.etherscan.io/api?module=proxy&action=eth_getCode&address=" + address + "&tag=latest&apikey=" + e.apiKey
 	fmt.Println(call)
 	resp, err := http.Get(call)
 	if err != nil {
@@ -46,9 +46,9 @@ type StringRec struct {
 // https://api.etherscan.io/api?module=proxy&action=eth_gasPrice&apikey=YourApiKeyToken
 
 // GasPrice - get optimal gas price
-func (a *API) GasPrice() (res IntRec) {
+func (e *Etherscan) GasPrice() (res IntRec) {
 	var tr IntRec
-	call := "https://api.etherscan.io/api?module=proxy&action=eth_gasPrice&apikey=&apikey=" + a.apiKey
+	call := "https://api.etherscan.io/api?module=proxy&action=eth_gasPrice&apikey=&apikey=" + e.apiKey
 	fmt.Println(call)
 	resp, err := http.Get(call)
 	if err != nil {
@@ -68,9 +68,9 @@ func (a *API) GasPrice() (res IntRec) {
 // https://api.etherscan.io/api?module=proxy&action=eth_estimateGas&to=0xf0160428a8552ac9bb7e050d90eeade4ddd52843&value=0xff22&gasPrice=0x051da038cc&gas=0xffffff&apikey=YourApiKeyToken
 
 // EstimateGas - run Tx locally and return amount of gas required
-func (a *API) EstimateGas(to string, value string) (res IntRec) {
+func (e *Etherscan) EstimateGas(to string, value string) (res IntRec) {
 	var tr IntRec
-	call := "https://api.etherscan.io/api?module=proxy&action=eth_estimateGas&to=" + to + "&value=" + value + "&gasPrice=0x051da038cc&gas=0xffffff&apikey=" + a.apiKey
+	call := "https://api.etherscan.io/api?module=proxy&action=eth_estimateGas&to=" + to + "&value=" + value + "&gasPrice=0x051da038cc&gas=0xffffff&apikey=" + e.apiKey
 	fmt.Println(call)
 	resp, err := http.Get(call)
 	if err != nil {

@@ -1,4 +1,4 @@
-package etherscanAPI
+package etherscan
 
 import (
 	"fmt"
@@ -35,7 +35,7 @@ func strToWei(value string) (vInWei *big.Int, ok bool) {
 
 // EtherStrToWei converts 1.0 to 1000000000000000000000
 //                        0.1 to  100000000000000000000
-func EtherStrToWei(value string) (vInEther *big.Int, ok bool) {
+func etherStrToWei(value string) (vInEther *big.Int, ok bool) {
 	v, ok := new(big.Int).SetString(value, 10)
 
 	if ok {

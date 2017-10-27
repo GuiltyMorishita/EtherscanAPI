@@ -1,4 +1,4 @@
-package etherscanAPI
+package etherscan
 
 import (
 	"encoding/json"
@@ -44,7 +44,7 @@ type EventRec struct {
 }
 
 // GetLogs - scour event logs from start to stop
-func (a *API) GetLogs(fromBlock string, toBlock string, address string, topics []string, operands []string) (ev EventRec) {
+func (e *Etherscan) GetLogs(fromBlock string, toBlock string, address string, topics []string, operands []string) (ev EventRec) {
 	topicLen := len(topics)
 	opLen := len(operands)
 	if topicLen < 1 {
@@ -64,7 +64,7 @@ func (a *API) GetLogs(fromBlock string, toBlock string, address string, topics [
 		fromBlock,
 		toBlock,
 		address,
-		a.apiKey)
+		e.apiKey)
 
 	for i := 0; i < topicLen; i++ {
 		if i > 0 {

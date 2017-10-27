@@ -1,4 +1,4 @@
-package etherscanAPI
+package etherscan
 
 import (
 	"encoding/json"
@@ -9,9 +9,9 @@ import (
 	"strings"
 )
 
-func (a *API) tokenSupply(addr string) (val *big.Int, err error) {
+func (e *Etherscan) TokenSupply(addr string) (val *big.Int, err error) {
 	var tr balRec
-	call := "http://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=" + addr + "&apikey=" + a.apiKey
+	call := "http://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=" + addr + "&apikey=" + e.apiKey
 	fmt.Println(call)
 	resp, err := http.Get(call)
 	if err != nil {
@@ -36,8 +36,8 @@ func (a *API) tokenSupply(addr string) (val *big.Int, err error) {
 	return
 }
 
-func (a *API) tokenAccountBalance(addr string, account string) (tr balRec, err error) {
-	call := "http://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=" + addr + "&address=" + account + "&tag=latest&apikey=" + a.apiKey
+func (e *Etherscan) TokenAccountBalance(addr string, account string) (tr balRec, err error) {
+	call := "http://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=" + addr + "&address=" + account + "&tag=latest&apikey=" + e.apiKey
 	//fmt.Println(call)
 	resp, err := http.Get(call)
 	if err != nil {

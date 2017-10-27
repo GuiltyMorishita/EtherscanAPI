@@ -1,4 +1,4 @@
-package etherscanAPI
+package etherscan
 
 import (
 	"encoding/json"
@@ -37,9 +37,9 @@ type TxListRec struct {
 // http://api.etherscan.io/api?module=account&action=txlist&address=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken
 // (To get paginated results use page=<page number> and offset=<max records to return>)
 // https://api.etherscan.io/api?module=account&action=txlist&address=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae&startblock=0&endblock=99999999&page=1&offset=10&sort=asc&apikey=YourApiKeyToken
-func (a *API) TransactionsByAddress(addr string) (tr TxListRec) {
+func (e *Etherscan) TransactionsByAddress(addr string) (tr TxListRec) {
 	//var tr txListRec
-	call := "http://api.etherscan.io/api?module=account&action=txlist&startblock=0&endblock=99999999&sort=asc" + "&address=" + addr + "&tag=latest&apikey=" + a.apiKey
+	call := "http://api.etherscan.io/api?module=account&action=txlist&startblock=0&endblock=99999999&sort=asc" + "&address=" + addr + "&tag=latest&apikey=" + e.apiKey
 	fmt.Println(call)
 	resp, err := http.Get(call)
 	if err != nil {
@@ -64,9 +64,8 @@ func (a *API) TransactionsByAddress(addr string) (tr TxListRec) {
 
 // (To get paginated results use page=<page number> and offset=<max records to return>)
 // https://api.etherscan.io/api?module=account&action=txlistinternal&address=0x2c1ba59d6f58433fb1eaee7d20b26ed83bda51a3&startblock=0&endblock=2702578&page=1&offset=10&sort=asc&apikey=YourApiKeyToken
-
-func (a *API) InternalTransactionsByAddress(addr string) (tr TxListRec) {
-	call := "http://api.etherscan.io/api?module=account&action=txlistinternal&address=" + addr + "&startblock=0&endblock=2702578&sort=asc&apikey=" + a.apiKey
+func (e *Etherscan) InternalTransactionsByAddress(addr string) (tr TxListRec) {
+	call := "http://api.etherscan.io/api?module=account&action=txlistinternal&address=" + addr + "&startblock=0&endblock=2702578&sort=asc&apikey=" + e.apiKey
 	fmt.Println(call)
 	resp, err := http.Get(call)
 	if err != nil {

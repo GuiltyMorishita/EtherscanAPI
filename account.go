@@ -1,4 +1,4 @@
-package etherscanAPI
+package etherscan
 
 import (
 	"encoding/json"
@@ -17,10 +17,10 @@ type balRec struct {
 	Result  string
 }
 
-func (a *API) getEtherBalance(addr string) (res *big.Int, err error) {
+func (e *Etherscan) GetEtherBalance(addr string) (res *big.Int, err error) {
 	var tr balRec
 	var ok bool
-	call := "http://api.etherscan.io/api?module=account&action=balance&address=" + addr + "&tag=latest&apikey=" + a.apiKey
+	call := "http://api.etherscan.io/api?module=account&action=balance&address=" + addr + "&tag=latest&apikey=" + e.apiKey
 	fmt.Println(call)
 	resp, err := http.Get(call)
 	if err != nil {
@@ -44,10 +44,10 @@ func (a *API) getEtherBalance(addr string) (res *big.Int, err error) {
 // Get Ether Balance for multiple Addresses in a single call
 // https://api.etherscan.io/api?module=account&action=balancemulti&address=0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a,0x63a9975ba31b0b9626b34300f7f627147df1f526,0x198ef1ec325a96cc354c7266a038be8b5c558f67&tag=latest&apikey=YourApiKeyToken
 
-func (a *API) getMultiEtherBalances(addr []string) {
+func (e *Etherscan) getMultiEtherBalances(addr []string) {
 	var tr balRec
 	addresses := strings.Join(addr, ",")
-	call := "http://api.etherscan.io/api?module=account&action=balancemulti&address=" + addresses + "&tag=latest&apikey=" + a.apiKey
+	call := "http://api.etherscan.io/api?module=account&action=balancemulti&address=" + addresses + "&tag=latest&apikey=" + e.apiKey
 	fmt.Println(call)
 	resp, err := http.Get(call)
 	if err != nil {
